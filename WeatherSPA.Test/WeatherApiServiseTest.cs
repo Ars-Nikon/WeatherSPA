@@ -9,7 +9,7 @@ namespace WeatherSPA.Test
     {
         private readonly OptionsWrapper<YandexConfigure> myConfiguration = new OptionsWrapper<YandexConfigure>(new YandexConfigure
         {
-            KeyApi = "54d9c111-9cd4-4ac4-bd33-057491d6a1c1",
+            KeyApi = "18b8d15c-0d6c-4849-8ee3-0ab08cdf5876",
             Lang = "ru_RU"
         });
 
