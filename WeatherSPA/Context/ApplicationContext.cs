@@ -4,9 +4,9 @@ using WeatherSPA.Models;
 
 namespace WeatherSPA.Context
 {
-    public class IdentityContext : IdentityDbContext<User>
+    public class ApplicationContext : IdentityDbContext<User>
     {
-        public IdentityContext(DbContextOptions<IdentityContext> options)
+        public ApplicationContext(DbContextOptions<ApplicationContext> options)
             : base(options)
         {
             Database.EnsureCreated();

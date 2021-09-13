@@ -13,6 +13,7 @@ using WeatherSPA.Context;
 using Microsoft.EntityFrameworkCore;
 using WeatherSPA.Models;
 using Microsoft.AspNetCore.Identity;
+using WeatherSPA.Services;
 
 namespace WeatherSPA
 {
@@ -31,16 +32,26 @@ namespace WeatherSPA
             services.Configure<YandexConfigure>(Configuration.GetSection("YandexConfigure"));
 
             services.AddSingleton<IWeatherApi, WeatherApiServise>();
+            services.AddScoped<IJWTTokenDescriptor, JWTTokenDescriptor>();
 
-            services.AddDbContext<IdentityContext>(options =>
+            services.AddDbContext<ApplicationContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
-            services.AddIdentity<User, IdentityRole>()
-               .AddEntityFrameworkStores<IdentityContext>();
+            services.AddIdentity<User, IdentityRole>(opts =>
+            {
+                opts.Password.RequiredLength = 8;   
+                opts.Password.RequireNonAlphanumeric = false;  
+                opts.Password.RequireLowercase = false; 
+                opts.Password.RequireUppercase = false; 
+                opts.Password.RequireDigit = false;
+                opts.User.RequireUniqueEmail = true;       
+            })
+               .AddEntityFrameworkStores<ApplicationContext>();
 
             services.AddControllersWithViews();
 
-            services.AddAuthentication().AddJwtBearer(JwtBearerDefaults.AuthenticationScheme,opts=> {
+            services.AddAuthentication().AddJwtBearer(JwtBearerDefaults.AuthenticationScheme, opts =>
+            {
                 opts.TokenValidationParameters.ValidateAudience = false;
                 opts.TokenValidationParameters.ValidateIssuer = false;
                 opts.TokenValidationParameters.IssuerSigningKey = new SymmetricSecurityKey(
