@@ -38,6 +38,11 @@ namespace WeatherSPA.Controllers
         {
             var user = await _UserManager.FindByEmailAsync(creds.Email);
 
+            if (user == null)
+            {
+                return BadRequest(new { success = false, ErrorMasege = "Invalid username and / or password" });
+            }
+
             var result = await _SignInManager.CheckPasswordSignInAsync(user,
                 creds.Password, true);
 

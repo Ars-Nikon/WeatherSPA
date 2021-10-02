@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace WeatherSPA.Controllers
+namespace WeatherSPA.Models
 {
     public class RegistrationDetails
     {

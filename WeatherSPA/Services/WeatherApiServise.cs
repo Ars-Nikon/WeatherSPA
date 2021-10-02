@@ -91,7 +91,7 @@ namespace WeatherSPA.Service
                 Icon = ForecastHour.icon,
                 ConditionSky = ForecastHour.condition,
                 WindSpeed = ForecastHour.wind_speed,
-                DirectWind = ForecastHour.wind_dir,
+                DirectWind = directWindFormat.GetValueOrDefault(ForecastHour.wind_dir),
                 Humidity = ForecastHour.humidity,
                 PrecProb = ForecastHour.prec_prob
             };

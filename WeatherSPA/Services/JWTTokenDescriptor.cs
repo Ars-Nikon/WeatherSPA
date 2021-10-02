@@ -7,12 +7,13 @@ using WeatherSPA.Models;
 using System.Threading.Tasks;
 using System.Text;
 using System.IdentityModel.Tokens.Jwt;
+using System.Collections.Generic;
 
 namespace WeatherSPA.Services
 {
     public interface IJWTTokenDescriptor
     {
-        public Task<string> GetJWTToken(User user);    
+        public Task<string> GetJWTToken(User user);
     }
 
 
@@ -30,12 +31,15 @@ namespace WeatherSPA.Services
         }
 
 
-        public async  Task<string> GetJWTToken(User user)
+        public async Task<string> GetJWTToken(User user)
         {
+
             SecurityTokenDescriptor descriptor = new SecurityTokenDescriptor
             {
                 Subject = (await _SignInManager.CreateUserPrincipalAsync(user))
                               .Identities.First(),
+
+                Claims = new Dictionary<string, object>() { { "Name", user.Name } },
 
                 Expires = DateTime.Now.AddMinutes(int.Parse(
                               _Configuration["BearerTokens:ExpiryMins"])),
