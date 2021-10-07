@@ -1,20 +1,14 @@
-﻿import 'bootstrap/dist/css/bootstrap.css';
-import 'MyCSS/site.css';
+﻿import ReactDOM from 'react-dom';
 import React from 'react';
-import BodyForecasts from './BodyForecast';
-import ReactDOM from 'react-dom';
+import App from './App';
+import { BrowserRouter } from 'react-router-dom';
+import 'bootstrap/dist/css/bootstrap.css';
+import 'MyCSS/site.css';
 
 
 ReactDOM.render(
-
-    <div className="container">
-        <div className="card card-2">
-            <nav className="navbar navbar-dark bg-dark">
-                <a className="navbar-brand" href="s">Navbar</a>
-            </nav>
-            <BodyForecasts />
-        </div>
-    </div>,
-
+    <BrowserRouter>
+        <App />
+    </BrowserRouter>,
     document.getElementById('root')
 );
